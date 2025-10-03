@@ -82,3 +82,11 @@ CREATE TABLE netflix
 	limit 1
 ```
 
+### 6.Content added in a given duration of time (example in the last 7 years)
+```sql	
+	select *
+	from netflix
+	where to_date(date_added,'month dd,yyyy') >= current_date - interval '7 years'
+```
+
+
