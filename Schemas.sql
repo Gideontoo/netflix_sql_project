@@ -1,5 +1,4 @@
 --SCHEMAS OF Netflix
-```sql
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
 (
@@ -18,4 +17,4 @@ CREATE TABLE netflix
 );
 
 SELECT * FROM netflix;
-```
+
