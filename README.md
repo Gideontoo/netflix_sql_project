@@ -42,7 +42,7 @@ CREATE TABLE netflix
 	from netflix
 ```
 
-The most common rating for movies and TV shows
+###The most common rating for movies and TV shows
 ```sql
 	with t1 as
 	(select show_type, rating, count(*) rating_count, rank() 
@@ -52,4 +52,12 @@ The most common rating for movies and TV shows
 	select show_type,rating, rating_count
 	from t1
 	where rank = 1
+```
+
+###All movies released in a specific year (for example 2020)
+```sql	
+	select title
+	from netflix
+	where show_type = 'Movie' and
+	release_year = 2020
 ```
