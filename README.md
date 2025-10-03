@@ -95,3 +95,12 @@ CREATE TABLE netflix
 	where director ilike '%Kirsten Johnson%'
 ```
 
+### 8.TV Shows with more than a given set of seasons (example more than 7 seasons)
+```sql
+	select *
+	from netflix
+	where show_type = 'TV Show' and
+	split_part(duration, ' ', 1):: numeric > 7
+	order by duration desc
+```
+
