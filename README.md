@@ -35,4 +35,8 @@ CREATE TABLE netflix
 
 ```
 ## Analysis and findings
-
+### The different types of shows available on Netflix
+	```sql
+    select distinct show_type
+	from netflix
+    ```
