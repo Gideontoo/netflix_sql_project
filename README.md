@@ -61,3 +61,14 @@ CREATE TABLE netflix
 	where show_type = 'Movie' and
 	release_year = 2020
 ```
+
+### 4.Top countries with the most content (example top 5 countries)
+```sql
+	select 	unnest(string_to_array(country,',')) updated_country, count(*) content_count
+	from netflix
+	where country is not null
+	group by 1
+	order by 2 desc
+	limit 5
+```
+
