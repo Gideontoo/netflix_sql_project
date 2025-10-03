@@ -72,3 +72,13 @@ CREATE TABLE netflix
 	limit 5
 ```
 
+### 5.Identify the longest movie
+	
+```sql
+	select show_type,title, split_part(duration, ' ', 1):: numeric movie_duration
+	from netflix
+	where show_type = 'Movie' and duration is not null
+	order by 3 desc
+	limit 1
+```
+
