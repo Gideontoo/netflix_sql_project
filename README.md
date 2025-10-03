@@ -35,14 +35,14 @@ CREATE TABLE netflix
 
 ```
 ## Analysis and findings
-###The different types of shows available on Netflix
+### 1.The different types of shows available on Netflix
 	
 ```sql
 	select distinct show_type
 	from netflix
 ```
 
-###The most common rating for movies and TV shows
+### 2.The most common rating for movies and TV shows
 ```sql
 	with t1 as
 	(select show_type, rating, count(*) rating_count, rank() 
@@ -54,7 +54,7 @@ CREATE TABLE netflix
 	where rank = 1
 ```
 
-###All movies released in a specific year (for example 2020)
+### 3.All movies released in a specific year (for example 2020)
 ```sql	
 	select title
 	from netflix
