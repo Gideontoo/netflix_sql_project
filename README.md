@@ -39,4 +39,3 @@ CREATE TABLE netflix
 	
     select distinct show_type
 	from netflix
-    ```
