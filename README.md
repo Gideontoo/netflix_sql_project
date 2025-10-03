@@ -35,14 +35,14 @@ CREATE TABLE netflix
 
 ```
 ## Analysis and findings
-### 1.The different types of shows available on Netflix
+### 1. The different types of shows available on Netflix
 	
 ```sql
 	select distinct show_type
 	from netflix
 ```
 
-### 2.The most common rating for movies and TV shows
+### 2. The most common rating for movies and TV shows
 ```sql
 	with t1 as
 	(select show_type, rating, count(*) rating_count, rank() 
@@ -54,7 +54,7 @@ CREATE TABLE netflix
 	where rank = 1
 ```
 
-### 3.All movies released in a specific year (for example 2020)
+### 3. All movies released in a specific year (for example 2020)
 ```sql	
 	select title
 	from netflix
@@ -62,7 +62,7 @@ CREATE TABLE netflix
 	release_year = 2020
 ```
 
-### 4.Top countries with the most content (example top 5 countries)
+### 4. Top countries with the most content (example top 5 countries)
 ```sql
 	select 	unnest(string_to_array(country,',')) updated_country, count(*) content_count
 	from netflix
@@ -72,7 +72,7 @@ CREATE TABLE netflix
 	limit 5
 ```
 
-### 5.Identify the longest movie
+### 5. Identify the longest movie
 	
 ```sql
 	select show_type,title, split_part(duration, ' ', 1):: numeric movie_duration
@@ -82,20 +82,20 @@ CREATE TABLE netflix
 	limit 1
 ```
 
-### 6.Content added in a given duration of time (example in the last 7 years)
+### 6. Content added in a given duration of time (example in the last 7 years)
 ```sql	
 	select *
 	from netflix
 	where to_date(date_added,'month dd,yyyy') >= current_date - interval '7 years'
 ```
-### 7.All the movies/TV Shows by a given director (example Kirsten Johnson)
+### 7. All the movies/TV Shows by a given director (example Kirsten Johnson)
 ```sql	
 	select show_type,title, director
 	from netflix
 	where director ilike '%Kirsten Johnson%'
 ```
 
-### 8.TV Shows with more than a given set of seasons (example more than 7 seasons)
+### 8. TV Shows with more than a given set of seasons (example more than 7 seasons)
 ```sql
 	select *
 	from netflix
@@ -104,7 +104,7 @@ CREATE TABLE netflix
 	order by duration desc
 ```
 
-### 9.Number of content items in each genre
+### 9. Number of content items in each genre
 ```sql
 	select unnest(string_to_array(listed_in,',')), count(*)
 	from netflix
@@ -112,7 +112,7 @@ CREATE TABLE netflix
 	order by 2 desc
 ```
 
-### 10.The average number of content released each year by a specific country (for example India)
+### 10. The average number of content released each year by a specific country (for example India)
 ``` sql
 	select extract(year from to_date(date_added,'month dd,yyyy')), count(*) content_count,
 	round(count(*) :: 
@@ -123,7 +123,7 @@ CREATE TABLE netflix
 	order by 3 desc
 ```
 
-### 11.The average content released each year in the United States
+### 11. The average content released each year in the United States
 ```sql	
 	select extract(year from to_date(date_added,'month dd,yyyy')), count(*) content_count,
 	round(count(*) :: numeric / 
@@ -134,27 +134,27 @@ CREATE TABLE netflix
 	order by 2 desc
 ```
 
-### 12.List all movies that belong to a particular genre (for example documentaries)
+### 12. List all movies that belong to a particular genre (for example documentaries)
 ```sql
 	select title
 	from netflix
 	where show_type = 'Movie'
 	and listed_in Ilike '%Documentaries%'
 ```
-### 13.All movies without a director
+### 13. All movies without a director
 ```sql	
 	select title
 	from netflix
 	where director is null
 ```
-### 14.List of movies a given actor appeared in during a given period of time (example 'Salman Khan' in the last 10 years)
+### 14. List of movies a given actor appeared in during a given period of time (example 'Salman Khan' in the last 10 years)
 ```sql	
 	select *
 	from netflix
 	where casts like '%Salman Khan%' and
 	release_year> extract(year from current_date) - 10
 ```
-### 15.Top 10 actors who appeared in the highest number of movies in a given country (example United States)
+### 15. Top 10 actors who appeared in the highest number of movies in a given country (example United States)
 ```sql
 	select  unnest(string_to_array(casts,',')) actors, count(*)
 	from netflix
@@ -164,3 +164,20 @@ CREATE TABLE netflix
 	order by 2 desc
 	limit 10
 ```
+### 16. Movie rating based on keywords 'Kill' and 'Violence' as rated
+```sql
+	with t1 as
+	(select title, show_type, 
+	case 
+	when description ilike '%kill%' or description ilike '%violence%'
+	then 'over 18'
+	else 'under 18'
+	end as rating
+	from netflix)
+
+	select rating, count(*)
+	from t1
+	group by 1
+	order by 2 desc
+```
+
