@@ -111,3 +111,14 @@ CREATE TABLE netflix
 	group by 1
 	order by 2 desc
 ```
+
+### 10.The average number of content released each year by a specific country (for example India)
+``` sql
+	select extract(year from to_date(date_added,'month dd,yyyy')), count(*) content_count,
+	round(count(*) :: 
+	numeric/(select count(*) from netflix where country = 'India'):: numeric* 100,2)
+	from netflix
+	where country = 'India'
+	group by 1
+	order by 3 desc
+```
