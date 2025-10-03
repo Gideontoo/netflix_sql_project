@@ -141,3 +141,9 @@ CREATE TABLE netflix
 	where show_type = 'Movie'
 	and listed_in Ilike '%Documentaries%'
 ```
+### 13.All movies without a director
+```sql	
+	select title
+	from netflix
+	where director is null
+```
