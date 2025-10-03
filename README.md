@@ -147,3 +147,10 @@ CREATE TABLE netflix
 	from netflix
 	where director is null
 ```
+### 14.List of movies a given actor appeared in during a given period of time (example 'Salman Khan' in the last 10 years)
+```sql	
+	select *
+	from netflix
+	where casts like '%Salman Khan%' and
+	release_year> extract(year from current_date) - 10
+```
