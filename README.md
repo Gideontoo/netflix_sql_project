@@ -88,5 +88,10 @@ CREATE TABLE netflix
 	from netflix
 	where to_date(date_added,'month dd,yyyy') >= current_date - interval '7 years'
 ```
-
+### 7.All the movies/TV Shows by a given director (example Kirsten Johnson)
+```sql	
+	select show_type,title, director
+	from netflix
+	where director ilike '%Kirsten Johnson%'
+```
 
