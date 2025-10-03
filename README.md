@@ -41,3 +41,15 @@ CREATE TABLE netflix
 	select distinct show_type
 	from netflix
 ```
+
+The most common rating for movies and TV shows
+```sql
+	with t1 as
+	(select show_type, rating, count(*) rating_count, rank() 
+	       over(partition by show_type order by count(*) desc)
+	from netflix
+	group by 1,2)
+	select show_type,rating, rating_count
+	from t1
+	where rank = 1
+```
