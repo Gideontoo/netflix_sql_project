@@ -34,3 +34,5 @@ CREATE TABLE netflix
 );
 
 ```
+## Analysis and findings
+
