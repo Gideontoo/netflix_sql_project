@@ -104,3 +104,10 @@ CREATE TABLE netflix
 	order by duration desc
 ```
 
+### 9.Number of content items in each genre
+```sql
+	select unnest(string_to_array(listed_in,',')), count(*)
+	from netflix
+	group by 1
+	order by 2 desc
+```
