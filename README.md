@@ -133,3 +133,11 @@ CREATE TABLE netflix
 	group by 1
 	order by 2 desc
 ```
+
+### 12.List all movies that belong to a particular genre (for example documentaries)
+```sql
+	select title
+	from netflix
+	where show_type = 'Movie'
+	and listed_in Ilike '%Documentaries%'
+```
