@@ -154,3 +154,13 @@ CREATE TABLE netflix
 	where casts like '%Salman Khan%' and
 	release_year> extract(year from current_date) - 10
 ```
+### 15.Top 10 actors who appeared in the highest number of movies in a given country (example United States)
+```sql
+	select  unnest(string_to_array(casts,',')) actors, count(*)
+	from netflix
+	where country ilike  '%United States%' and 
+	casts is not null
+	group by 1
+	order by 2 desc
+	limit 10
+```
